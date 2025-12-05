@@ -8,11 +8,10 @@ body {
         radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 10%, transparent 10%),
         linear-gradient(180deg, #141E30 0%, #243B55 100%);
     background-size: 30px 30px, 100% 100%;
-    /* Використовуємо 100dvh для коректного відображення на iPhone/Android */
+    /* Адаптивна висота */
     height: 100vh; height: 100dvh;
     display: flex; justify-content: center; align-items: center;
     overflow: hidden; color: white; text-align: center;
-    /* Заборона виділення тексту (щоб не заважало клікати) */
     user-select: none; -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
@@ -24,20 +23,16 @@ body {
     padding: 15px;
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
-    /* Адаптивна ширина */
     width: 90%; max-width: 400px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    /* Щоб при відкритті клавіатури можна було скролити */
     max-height: 95dvh; overflow-y: auto;
 }
 
-/* Адаптивна гіфка */
+/* Гіфки */
 .styled-gif {
-    /* Використовуємо відсотки або max-width */
     width: 220px; height: 220px;
     max-width: 60vw; max-height: 60vw;
-    object-fit: cover;
-    border-radius: 20px;
+    object-fit: cover; border-radius: 20px;
     border: 3px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
     background-color: rgba(255, 255, 255, 0.05);
@@ -48,7 +43,7 @@ body {
 /* Заголовки */
 .fancy-title {
     font-family: 'Pacifico', cursive;
-    font-size: 1.5rem; margin-bottom: 10px; margin-top: 5px;
+    font-size: 1.6rem; margin: 10px 0;
     background: linear-gradient(to right, #FFD700, #FFA500, #FFD700);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-size: 200% auto; animation: shine 3s linear infinite;
@@ -59,7 +54,7 @@ body {
 .title-wrapper { height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
 h1 { font-size: 1.3rem; margin: 0; line-height: 1.2; }
 .win-title { color: #ffd700; margin-bottom: 5px; font-size: 1.2rem; }
-.win-text { font-size: 0.9rem; margin-bottom: 10px; color: #ddd; }
+.win-text { font-size: 0.95rem; margin-bottom: 10px; color: #ddd; }
 
 /* Прогрес бар */
 .progress-bar {
@@ -73,17 +68,14 @@ h1 { font-size: 1.3rem; margin: 0; line-height: 1.2; }
     transition: width 0.1s linear;
 }
 
-/* ГОЛОВНА КНОПКА - Оптимізована під палець */
+/* Кнопки */
 .btn {
     background: radial-gradient(circle, #ff9966, #ff5e62);
     color: white; border: none;
-    padding: 18px 0; /* Висока кнопка */
-    width: 100%;     /* На всю ширину */
-    font-size: 1.4rem;
-    border-radius: 50px; cursor: pointer;
+    padding: 18px 0; width: 100%;
+    font-size: 1.4rem; border-radius: 50px; cursor: pointer;
     box-shadow: 0 0 20px rgba(255, 94, 98, 0.6);
-    font-weight: 900; outline: none; 
-    touch-action: manipulation; /* Покращує реакцію на тач */
+    font-weight: 900; outline: none; touch-action: manipulation;
 }
 .btn:active { transform: scale(0.96); }
 
@@ -116,7 +108,7 @@ h1 { font-size: 1.3rem; margin: 0; line-height: 1.2; }
     margin: 5px auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
     animation: float 2s ease-in-out infinite; transition: transform 0.3s;
 }
-.envelope-btn:hover, .envelope-btn:active { transform: scale(1.1); }
+.envelope-btn:hover { transform: scale(1.1); }
 .envelope-text { font-size: 0.9rem; color: #ffeaa7; margin-top: -10px; display: block; }
 @keyframes float {
     0% { transform: translateY(0px); }
@@ -143,7 +135,7 @@ h1 { font-size: 1.3rem; margin: 0; line-height: 1.2; }
 }
 
 textarea {
-    width: 90%; height: 60px;
+    width: 90%; height: 70px;
     border: 2px solid #ccc; border-radius: 10px;
     padding: 10px; font-family: 'Segoe UI', sans-serif;
     resize: none; margin-bottom: 10px; font-size: 1rem;

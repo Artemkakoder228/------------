@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Миколай і Песик</title>
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script type="text/javascript">
+       (function(){
+          // Твій Public Key вже тут!
+          emailjs.init("Gx1dhmwR3W9Q-wta_");
+       })();
+    </script>
 </head>
 <body>
 
@@ -49,7 +59,7 @@
 
                 <div class="letter-container" id="letter-form" style="display: none;">
                     <h3>✉️ Лист Миколаю</h3>
-                    <textarea id="letter-text" placeholder="Напиши бажання..."></textarea>
+                    <textarea id="letter-text" placeholder="Напиши своє бажання..."></textarea>
                     <button class="btn-send" id="send-letter-btn">Відправити ✨</button>
                 </div>
             </div>

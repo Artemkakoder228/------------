@@ -37,18 +37,15 @@ const gameLoop = setInterval(() => {
     updateUI();
 }, 50);
 
-// --- ОБРОБКА КЛІКУ (Оптимізовано для мобільних) ---
+// --- ОБРОБКА КЛІКУ ---
 btn.addEventListener('mousedown', handleInteraction);
 btn.addEventListener('touchstart', (e) => {
-    // Цей рядок забороняє браузеру робити зум або скрол при тапі
     if (e.cancelable) e.preventDefault(); 
     handleInteraction(e);
 }, { passive: false });
 
 function handleInteraction(e) {
     if (!gameActive) return;
-    
-    // Якщо це клік мишкою - теж блокуємо дефолтну поведінку
     if (e.type === 'mousedown' && e.cancelable) e.preventDefault();
 
     if (!gameStarted) {
@@ -61,7 +58,7 @@ function handleInteraction(e) {
     dogImg.classList.add('scale-click');
     setTimeout(() => dogImg.classList.remove('scale-click'), 100);
     
-    // Координати для вильоту смаколиків
+    // Смаколики
     let clientX, clientY;
     if (e.type === 'touchstart') {
         clientX = e.touches[0].clientX;
@@ -82,16 +79,20 @@ function handleInteraction(e) {
 function updateUI() {
     progressBar.style.width = score + '%';
 
+    // 1. Старт
     if (!gameStarted) {
         if (!dogImg.src.includes("Dog_1.gif")) dogImg.src = "Dog_1.gif";
         return;
     }
 
+    // 2. Гра
     if (score < 30) {
+        // Плаче
         if (!dogImg.src.includes("Dog_6.gif")) dogImg.src = "Dog_6.gif";
         titleText.innerText = "Швидше! Він плаче! 😭";
         progressBar.style.background = "linear-gradient(90deg, #ff416c, #ff4b2b)";
     } else {
+        // Їде
         if (!dogImg.src.includes("Dog_3.gif")) dogImg.src = "Dog_3.gif";
         
         if (score < 70) {
@@ -142,6 +143,7 @@ openLetterBtn.addEventListener('click', () => {
     letterForm.style.display = 'block';
 });
 
+// --- ВІДПРАВКА ЛИСТА (ВЖЕ З ТВОЇМИ КЛЮЧАМИ) ---
 sendLetterBtn.addEventListener('click', () => {
     const text = letterText.value;
     if (text.trim() === "") {
@@ -149,17 +151,30 @@ sendLetterBtn.addEventListener('click', () => {
         return;
     }
 
-    // ТУТ ВПИШИ СВІЙ EMAIL
-    const myEmail = 'tviy_email@gmail.com'; 
-    
-    const subject = 'Лист від Миколая (Гра)';
-    const mailtoLink = `mailto:${myEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-    
-    window.location.href = mailtoLink;
-    
-    sendLetterBtn.innerText = "Відправлено! ✅";
-    sendLetterBtn.style.background = "#ccc";
-    launchBallConfetti();
+    sendLetterBtn.innerText = "Відправка...";
+    sendLetterBtn.style.background = "#bdc3c7";
+
+    // Твої ключі
+    const serviceID = "service_jjysm7r";
+    const templateID = "template_cnx29ub";
+
+    const templateParams = {
+        message: text,
+    };
+
+    emailjs.send(serviceID, templateID, templateParams)
+        .then(() => {
+            sendLetterBtn.innerText = "Відправлено! ✅";
+            sendLetterBtn.style.background = "#2ecc71";
+            letterText.value = "";
+            launchBallConfetti();
+            alert("Лист успішно полетів до Миколая! 🎅");
+        }, (err) => {
+            sendLetterBtn.innerText = "Помилка 😔";
+            sendLetterBtn.style.background = "red";
+            console.log(err);
+            alert("Помилка відправки. Перевір консоль (F12).");
+        });
 });
 
 function launchBallConfetti() {
